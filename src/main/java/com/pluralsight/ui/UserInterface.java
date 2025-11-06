@@ -15,8 +15,11 @@ public class UserInterface {
 
             String choice = sc.nextLine();
             if (choice.equals("1")){
-
-
+                orderMenuPlaceholder();
+            }else {
+                if (choice.equals("0")){
+                    return;
+                }
             }
         }
 
