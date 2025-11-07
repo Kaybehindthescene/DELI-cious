@@ -1,5 +1,7 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.models.Order;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -17,7 +19,8 @@ public class UserInterface {
 
             String choice = sc.nextLine();
             if (choice.equals("1")){
-                orderMenuPlaceholder();
+                Order order = new Order();
+               orderMenu(order);
             }else {
                 if (choice.equals("0")){
                     return;
@@ -26,9 +29,61 @@ public class UserInterface {
         }
 
     }
-    private void orderMenuPlaceholder() {
-        System.out.println("(Order screen placeholder)");
+
+    private void orderMenu(Order order) {
+        while (true){
+            System.out.println("=====Order Menu=====");
+            System.out.println("1) Add Sandwich");
+            System.out.println("2) Add Drink");
+            System.out.println("3) Add Chips");
+            System.out.println("4) Checkout");
+            System.out.println("0) Cancel Order");
+            System.out.println("Choose: ");
+
+            String choice = sc.nextLine().trim();
+
+            switch (choice) {
+                case "1":
+                    System.out.println("Add Sandwich ");
+                    addSandwich();
+                    break;
+                case "2":
+                    System.out.println("Add Drink ");
+                    addDrink();
+                    break;
+                case "3":
+                    System.out.println("Add Chips ");
+                    addChips();
+                    break;
+                case "4":
+                    System.out.println("Checkout ");
+                    checkOut();
+                    break;
+                case "0":
+                    return;
+
+                default:
+                    System.out.println("Invalid Option!!!");
+                    break;
+            }
+        }
     }
+
+
+    private void addSandwich(){
+        System.out.println("Added sandwich");
+    }
+    private void addDrink(){
+        System.out.println("added drink");
+    }
+    private void addChips(){
+        System.out.println("added chips");
+    }
+    private void checkOut(){
+        System.out.println("checkout");
+    }
+
+
 
 
 }
