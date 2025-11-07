@@ -3,9 +3,11 @@ package com.pluralsight.ui;
 import java.util.Scanner;
 
 public class UserInterface {
-
+    // Create a Scanner object to read user input from the console
     Scanner sc = new Scanner(System.in);
 
+    // The home() method displays the main menu (Home screen)
+    // and keeps looping until the user decides to exit.
     public void home(){
         while (true){
             System.out.println("==== DELI-cious ====");
@@ -27,5 +29,6 @@ public class UserInterface {
     private void orderMenuPlaceholder() {
         System.out.println("(Order screen placeholder)");
     }
+
 
 }
