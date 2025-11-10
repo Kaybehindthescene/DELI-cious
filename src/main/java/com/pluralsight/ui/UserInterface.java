@@ -1,6 +1,9 @@
 package com.pluralsight.ui;
 
+import com.pluralsight.models.Bread;
 import com.pluralsight.models.Order;
+import com.pluralsight.models.Sandwich;
+import com.pluralsight.models.Size;
 
 import java.util.Scanner;
 
@@ -44,8 +47,7 @@ public class UserInterface {
 
             switch (choice) {
                 case "1":
-                    System.out.println("Add Sandwich ");
-                    addSandwich();
+                    addSandwichFlow(order);
                     break;
                 case "2":
                     System.out.println("Add Drink ");
@@ -68,6 +70,33 @@ public class UserInterface {
             }
         }
     }
+    private void addSandwichFlow(Order order){
+        System.out.println("What size sandwich do you want? The options are 4/8/12 inches.");
+        Size size;
+        try {
+            size = Size.parsed(sc.nextLine());
+        }catch (IllegalArgumentException e){
+            System.out.println("This is an invalid size!!! Please try again");
+            return;
+        }
+
+        System.out.println("What type of bread would you like? the options are: WHITE, WHEAT, RYE, SOURDOUGH, WRAP");
+        Bread bread;
+        try {
+            bread = Bread.parsed(sc.nextLine());
+        }catch (IllegalArgumentException e){
+            System.out.println("This is an invalid option of bread!!! Please try again");
+            return;
+        }
+        System.out.println("Would you like it toasted (Yes/No)");
+        boolean toasted = sc.nextLine().trim().equalsIgnoreCase("Yes");
+
+        Sandwich sandwich = new Sandwich(size, bread, toasted);
+        System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
+
+        order.addSandwich(sandwich);
+    }
+
 
 
     private void addSandwich(){

@@ -21,5 +21,29 @@ public enum Size {
         return basePrice;
     }
 
+    public String getLabel(){
+        return inches +"\"";
+    }
+
+    public static Size parsed(String input){
+        String s = input.trim().toLowerCase();
+        switch (s){
+            case "4": case "4\"": case "four": case "small":return FOUR;
+            case "8": case "8\"": case "eight": case "medium": return EIGHT;
+            case "12": case "12\"": case "twelve": case "footlong": case "large": return TWELVE;
+            default: throw new IllegalArgumentException("Invalid size " + input);
+
+        }
+    }
+    public static Size ofinches(int inches){
+        for (Size sizeOption : values()) if (sizeOption.inches == inches) return sizeOption;
+        throw new IllegalArgumentException("Unsupported inches: " + inches);
+    }
+
+    @Override
+    public String toString(){
+        return getLabel();
+    }
+
 
 }

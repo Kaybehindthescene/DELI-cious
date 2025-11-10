@@ -26,4 +26,9 @@ public enum Bread {
     public static Bread parsed(String input){
         return Bread.valueOf(input.trim().toUpperCase());
     }
+
+    @Override
+    public String toString(){
+        return displayName;
+    }
 }
