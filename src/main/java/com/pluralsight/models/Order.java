@@ -8,34 +8,45 @@ public class Order {
 
     private static final double taxRate = 0.08875;
 
-    private final List<Sandwich> sandwiches = new ArrayList<>();
+    private final List<Sandwich> items = new ArrayList<>();
 
-    public void addSandwich(Sandwich sandwich){
-        if (sandwich == null)throw new IllegalArgumentException("sandwich is null");
-        sandwiches.add(sandwich);
+    public void addSandwich(Sandwich sandwich, int quantity){
+        items.add(new SandwichItem(sandwich,quantity));
     }
-
-    public boolean removeSandwich(int index){
-        if (index < 0 || index >= sandwiches.size()) return false;
-        sandwiches.remove(index);
+    public void addDrink(Drink drink,int quantity){
+        items.add(new RegularItem(drink.getLabel(),drink.getPrice(),quantity));
+    }
+    public void addChips(Chips chips,int quantity){
+        items.add(new RegularItem(chips.getLabel(),chips.getPrice(),quantity));
+    }
+    public void addItem(OrderItem item){
+        if (item == null){
+            throw new IllegalArgumentException("item");
+            items.add(item);
+        }
+    }
+    public boolean removeAt(int index) {
+        if (index < 0 || index >= items.size()) return false;
+        items.remove(index);
         return true;
     }
 
+
     public void clear(){
-        sandwiches.clear();
+        items.clear();
     }
 
-    public List<Sandwich> getSandwiches(){
-        return Collections.unmodifiableList(sandwiches);
+    public List<Sandwich> getItems(){
+        return Collections.unmodifiableList(items);
     }
 
     public boolean isEmpty(){
-        return sandwiches.isEmpty();
+        return items.isEmpty();
     }
 
     public double getSubtotal(){
         double sum = 0.0;
-        for (Sandwich s : sandwiches) sum += s.getPrice();
+        for (RegularItem ri : items) sum += ri.getOrderTotal();
         return sum;
     }
 
