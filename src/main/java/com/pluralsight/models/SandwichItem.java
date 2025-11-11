@@ -21,7 +21,7 @@ public class SandwichItem implements OrderItem{
     }
 
     @Override
-    public String getabel(){
+    public String getLabel(){
         return sandwich.getLabel();
     }
 
@@ -32,5 +32,10 @@ public class SandwichItem implements OrderItem{
     @Override
     public int getQuantity(){
         return quantity;
+    }
+
+    @Override
+    public double getOrderTotal() {
+        return OrderItem.super.getOrderTotal();
     }
 }
