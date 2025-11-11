@@ -53,11 +53,11 @@ public class UserInterface {
                     break;
                 case "3":
                     System.out.println("Add Chips ");
-                    addChips();
+                    addChips(order);
                     break;
                 case "4":
                     System.out.println("Checkout ");
-                    checkOut();
+                    checkOut(order);
                     break;
                 case "0":
                     return;
@@ -114,11 +114,52 @@ public class UserInterface {
         order.addDrink(d,q);
         System.out.printf("Added: %s x%d  $%.2f%n", d.getLabel(), q, d.getPrice() * q);
     }
-    private void addChips(){
-        System.out.println("added chips");
+    private void addChips(Order order){
+        System.out.println("What type of chips do you want: Classic, BBQ, Sour Cream ");
+        Chips c;
+        try {
+            c = Chips.parsed(sc.nextLine());
+        }catch (Exception e){
+            System.out.println("This is not an available option. Please try again");
+            return;
+        }
+        System.out.println("How many chips would you like: ");
+        int q;
+        try {
+            q = Integer.parseInt(sc.nextLine().trim());
+        }catch (Exception e){
+            System.out.println("This is an invalid number of chips. Please try again");
+            return;
+        }
+        order.addChips(c,q);
+        System.out.printf("Added: %s x%d  $%.2f%n", c.getLabel(), q, c.getPrice() * q);
     }
-    private void checkOut(){
-        System.out.println("checkout");
+    private void printCart(Order order){
+        if (order.isEmpty()){
+            System.out.println("Your cart is empty. Please add some items.");
+            return;
+        }
+        System.out.println("-------- Current Order ----------");
+        int i = 0;
+        for (OrderItem item : order.getItems()){
+            System.out.printf("%2d) %-20s x%-2d  @ $%.2f  = $%.2f%n",
+                    i++, item.getLabel(), item.getQuantity(), item.getUnitPrice(), item.getOrderTotal());
+        }
+        System.out.printf("Subtotal: $%.2f%nTax: $%.2f%nTotal: $%.2f%n",
+                order.getSubtotal(), order.getTax(), order.getTotal());
+
+    }
+    private void checkOut(Order order){
+        if (order.isEmpty()){
+            System.out.println("No items to checkout");
+            return;
+        }
+        System.out.println("====== RECEIPT =====");
+        printCart(order);
+        System.out.println("====================");
+
+        order.clear();
+        System.out.println("Thank you for placing an order with us. Hope to see you again");
     }
 
 
