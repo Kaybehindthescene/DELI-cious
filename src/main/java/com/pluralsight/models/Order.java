@@ -8,10 +8,10 @@ public class Order {
 
     private static final double taxRate = 0.08875;
 
-    private final List<Sandwich> items = new ArrayList<>();
+    private final List<OrderItem> items = new ArrayList<>();
 
-    public void addSandwich(Sandwich sandwich, int quantity){
-        items.add(new SandwichItem(sandwich,quantity));
+    public void addSandwich(Sandwich sandwich, int quantity) {
+        items.add(new SandwichItem(sandwich, quantity));
     }
     public void addDrink(Drink drink,int quantity){
         items.add(new RegularItem(drink.getLabel(),drink.getPrice(),quantity));
@@ -22,8 +22,8 @@ public class Order {
     public void addItem(OrderItem item){
         if (item == null){
             throw new IllegalArgumentException("item");
-            items.add(item);
         }
+        items.add(item);
     }
     public boolean removeAt(int index) {
         if (index < 0 || index >= items.size()) return false;
@@ -36,7 +36,7 @@ public class Order {
         items.clear();
     }
 
-    public List<Sandwich> getItems(){
+    public List<OrderItem> getItems(){
         return Collections.unmodifiableList(items);
     }
 
@@ -46,7 +46,7 @@ public class Order {
 
     public double getSubtotal(){
         double sum = 0.0;
-        for (RegularItem ri : items) sum += ri.getOrderTotal();
+        for (OrderItem ri : items) sum += ri.getOrderTotal();
         return sum;
     }
 

@@ -1,10 +1,8 @@
 package com.pluralsight.ui;
 
-import com.pluralsight.models.Bread;
-import com.pluralsight.models.Order;
-import com.pluralsight.models.Sandwich;
-import com.pluralsight.models.Size;
+import com.pluralsight.models.*;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -51,7 +49,7 @@ public class UserInterface {
                     break;
                 case "2":
                     System.out.println("Add Drink ");
-                    addDrink();
+                    addDrink(order);
                     break;
                 case "3":
                     System.out.println("Add Chips ");
@@ -92,18 +90,29 @@ public class UserInterface {
         boolean toasted = sc.nextLine().trim().equalsIgnoreCase("Yes");
 
         Sandwich sandwich = new Sandwich(size, bread, toasted);
+        order.addSandwich(sandwich,1);
         System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
-
-        order.addSandwich(sandwich);
     }
 
-
-
-    private void addSandwich(){
-        System.out.println("Added sandwich");
-    }
-    private void addDrink(){
-        System.out.println("added drink");
+    private void addDrink(Order order){
+        System.out.println("What drink do you want: SODA, WATER, JUICE: ");
+        Drink d;
+        try {
+            d = Drink.parsed(sc.nextLine());
+        }catch (Exception e){
+            System.out.println("This is not a valid option for a drink. Please try again");
+            return;
+        }
+        System.out.println("How many drinks would you like: ");
+        int q;
+        try {
+            q = Integer.parseInt(sc.nextLine().trim());
+        }catch (Exception e){
+            System.out.println("This is an invalid number of drinks. Please try again");
+            return;
+        }
+        order.addDrink(d,q);
+        System.out.printf("Added: %s x%d  $%.2f%n", d.getLabel(), q, d.getPrice() * q);
     }
     private void addChips(){
         System.out.println("added chips");
