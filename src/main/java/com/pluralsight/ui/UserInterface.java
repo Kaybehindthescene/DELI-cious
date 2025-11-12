@@ -15,7 +15,7 @@ public class UserInterface {
     // and keeps looping until the user decides to exit.
     public void home(){
         while (true){
-            System.out.println("==== DELI-cious ====");
+            System.out.println("======DELI-cious======");
             System.out.println("1) New Order");
             System.out.println("0) Exit");
             System.out.print("Choose: ");
@@ -94,6 +94,22 @@ public class UserInterface {
         Sandwich sandwich = new Sandwich(size, bread, toasted);
 
         toppingsMenu(sandwich);
+
+        System.out.println("Would you like extra meat? (Yes/No)");
+        String extraMeat =sc.nextLine().trim().toLowerCase();
+        if (extraMeat.equalsIgnoreCase("yes")){
+            sandwich.addTopping(Topping.EXTRA_MEAT);
+            System.out.println("Extra meat has been added!!!");
+            pause(1000);
+        }
+        System.out.println("Would you like extra cheese? (Yes/No)");
+        String extraCheese = sc.nextLine().trim().toLowerCase();
+        if (extraCheese.equalsIgnoreCase("yes")){
+            sandwich.addTopping(Topping.EXTRA_CHEESE);
+            System.out.println("Extra cheese has been added!!!");
+            pause(1000);
+        }
+
 
         System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
         pause(1500);
@@ -184,7 +200,7 @@ public class UserInterface {
 
     private void toppingsMenu(Sandwich sandwich){
         while (true){
-            System.out.println("\n ===== TOPPINGS MENU =====");
+            System.out.println("\n =====TOPPINGS MENU=====");
             System.out.println("1) Add Meat");
             System.out.println("2) Add Cheese");
             System.out.println("3) Add Extra Meat");
@@ -199,8 +215,11 @@ public class UserInterface {
             switch (c){
                 case "1" -> addFromCategory(sandwich, ToppingType.MEAT);
                 case "2" -> addFromCategory(sandwich, ToppingType.CHEESE);
-                case "3" -> addFromCategory(sandwich, ToppingType.EXTRA_MEAT);
-                case "4" -> addFromCategory(sandwich, ToppingType.EXTRA_CHEESE);
+                case "3" ->{addFromCategory(sandwich, ToppingType.EXTRA_MEAT);
+                }
+                case "4" -> {
+                    addFromCategory(sandwich, ToppingType.EXTRA_CHEESE);
+                }
                 case "5" -> addFromCategory(sandwich, ToppingType.REGULAR);
                 case "6" -> addFromCategory(sandwich, ToppingType.SAUCE);
                 case "V" -> printCurrentSandwich(sandwich);
@@ -215,12 +234,40 @@ public class UserInterface {
             System.out.println("No options available.");
             return;
         }
-        System.out.println("\n--" + type.name() + " OPTIONS --");
+        System.out.println("\n=====" + type.name() + " OPTIONS=====");
         for (Topping t : options){
             double price = t.getPrice(sandwich.getSize());
             System.out.printf("- %s  %s%n",
                     t.name(),
                     price == 0.0 ? "(included)" : String.format("$%.2f", price));
+        }
+        if (type == ToppingType.EXTRA_MEAT){
+            System.out.println("Would you like extra meat? (Yes/No)");
+            String answer = sc.nextLine().trim().toLowerCase();
+            if (answer.equalsIgnoreCase("yes")){
+                System.out.println("Extra meat added!!!");
+                pause(800);
+                sandwich.addTopping(Topping.EXTRA_MEAT);
+            }else {
+                System.out.println("Extra meat was not added");
+                pause(800);
+            }
+            return;
+
+        }
+        if (type == ToppingType.EXTRA_CHEESE){
+            System.out.println("Would you like extra cheese? (Yes/No)");
+            String answer = sc.nextLine().trim().toLowerCase();
+            if (answer.equalsIgnoreCase("yes")){
+                System.out.println("Extra cheese added!!!");
+                pause(800);
+                sandwich.addTopping(Topping.EXTRA_CHEESE);
+            }else {
+                System.out.println("Extra cheese was not added");
+                pause(800);
+            }
+            return;
+
         }
         System.out.println("Type names separated by commas (or Enter to skip): ");
         String input = sc.nextLine().trim();
@@ -247,6 +294,7 @@ public class UserInterface {
             System.out.printf("%d topping(s) added. Price now: $%.2f%n",
                     added, sandwich.getPrice());
         }
+        pause(2000);
 
     }
     private List<Topping> optionsFor(ToppingType type){
