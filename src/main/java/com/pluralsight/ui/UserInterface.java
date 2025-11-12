@@ -96,6 +96,7 @@ public class UserInterface {
         toppingsMenu(sandwich);
 
         System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
+        pause(1500);
         order.addSandwich(sandwich,1);
     }
 
@@ -118,6 +119,7 @@ public class UserInterface {
         }
         order.addDrink(d,q);
         System.out.printf("Added: %s x%d  $%.2f%n", d.getLabel(), q, d.getPrice() * q);
+        pause(1500);
     }
     private void addChips(Order order){
         System.out.println("What type of chips do you want: Classic, BBQ, Sour Cream ");
@@ -138,6 +140,7 @@ public class UserInterface {
         }
         order.addChips(c,q);
         System.out.printf("Added: %s x%d  $%.2f%n", c.getLabel(), q, c.getPrice() * q);
+        pause(1500);
     }
     private void printCart(Order order){
         if (order.isEmpty()){
@@ -155,6 +158,8 @@ public class UserInterface {
 
     }
     private void checkOut(Order order) {
+        System.out.println("\n Preparing your receipt...");
+        pause(1200);
         System.out.println();
         System.out.println("=====================================");
         System.out.println("          FINAL RECEIPT");
@@ -165,7 +170,7 @@ public class UserInterface {
         String receipt = order.getReceipt();
         System.out.println(receipt);
 
-        System.out.println("Thank you for shopping with us. Please come by again");
+        System.out.println("Please come by again");
         sc.nextLine(); // pause so user can read receipt before returning
     }
 
@@ -248,6 +253,14 @@ public class UserInterface {
             System.out.println("(no toppings yet)");
         }
         System.out.printf("Price so far: $%.2f%n", s.getPrice());
+    }
+    private void pause(long time){
+        try {
+            Thread.sleep(time);
+        }catch (InterruptedException e){
+            Thread.currentThread().interrupt();
+        }
+
     }
 
 
