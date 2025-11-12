@@ -92,4 +92,21 @@ public enum Topping {
                 return 0.00;
     }
     return 0.00;
+}
+    public static Topping parse(String input) {
+        if (input == null || input.trim().isEmpty()) {
+            throw new IllegalArgumentException("Topping name cannot be empty.");
+        }
+        String normalized = input.trim()
+                .toUpperCase()
+                .replace(' ', '_');
+
+        try {
+            return Topping.valueOf(normalized);
+        } catch (IllegalArgumentException ex) {
+            throw new IllegalArgumentException("Unknown topping: " + input);
+        }
 }}
+
+
+
