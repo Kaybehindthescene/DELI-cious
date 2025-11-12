@@ -3,6 +3,7 @@ package com.pluralsight.ui;
 import com.pluralsight.models.*;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -90,8 +91,11 @@ public class UserInterface {
         boolean toasted = sc.nextLine().trim().equalsIgnoreCase("Yes");
 
         Sandwich sandwich = new Sandwich(size, bread, toasted);
-        order.addSandwich(sandwich,1);
+
+        toppingsMenu(sandwich);
+
         System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
+        order.addSandwich(sandwich,1);
     }
 
     private void addDrink(Order order){
@@ -160,6 +164,73 @@ public class UserInterface {
 
         order.clear();
         System.out.println("Thank you for placing an order with us. Hope to see you again");
+    }
+    private void toppingsMenu(Sandwich sandwich){
+        while (true){
+            System.out.println("\n ===== TOPPINGS MENU =====");
+            System.out.println("1) Add Meat");
+            System.out.println("2) Add Cheese");
+            System.out.println("3) Add Extra Meat");
+            System.out.println("4) Add Extra Cheese");
+            System.out.println("5) Add Regular Toppings");
+            System.out.println("6) Add Sauces");
+            System.out.println("V) View Current Order");
+            System.out.println("D) Done");
+            System.out.println("C) Choose: ");
+
+            String c = sc.nextLine().trim().toUpperCase();
+            switch (c){
+                case "1" -> addFromCategory(sandwich, ToppingType.MEAT);
+                case "2" -> addFromCategory(sandwich, ToppingType.CHEESE);
+                case "3" -> addFromCategory(sandwich, ToppingType.EXTRA_MEAT);
+                case "4" -> addFromCategory(sandwich, ToppingType.EXTRA_CHEESE);
+                case "5" -> addFromCategory(sandwich, ToppingType.REGULAR);
+                case "6" -> addFromCategory(sandwich, ToppingType.SAUCE);
+                case "V" -> printCurrentSandwich(sandwich);
+                case "D" -> { return; }
+                default -> System.out.println("Invalid option.");
+            }
+        }
+    }
+    private void addFromCategory(Sandwich sandwich, ToppingType type){
+        List<Topping> options = optionsFor(type);
+        if (options.isEmpty()){
+            System.out.println("No options available.");
+            return;
+        }
+        System.out.println("\n--" + type + "options --");
+        for (Topping t : options){
+            double price = t.getPrice(sandwich.getSize());
+            System.out.printf("- %s  %s%n",
+                    t.name(),
+                    price == 0.0 ? "(included)" : String.format("$%.2f", price));
+        }
+        System.out.println("Type names separated by commas (or Enter to skip): ");
+        String input = sc.nextLine().trim();
+        if (input.isEmpty()){
+            return;
+        }
+        int added = 0;
+        for (String raw : input.split(",")){
+            String token = raw.trim();
+            try {
+                Topping top = Topping.parse(token);
+                if (top.getType() != type){
+                    System.out.println("Skipping (wrong category): " + token);
+                    continue;
+                }
+                sandwich.addTopping(top);
+                added++;
+            }catch (Exception e){
+                System.out.println("Skipping invalid topping: " + token);
+
+            }
+        }
+        if (added > 0){
+            System.out.printf("%d topping(s) added. Price now: $%.2f%n",
+                    added, sandwich.getPrice());
+        }
+
     }
 
 
