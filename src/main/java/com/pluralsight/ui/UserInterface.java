@@ -109,6 +109,14 @@ public class UserInterface {
             System.out.println("This is not a valid option for a drink. Please try again");
             return;
         }
+        System.out.println("What size drink would you like: SMALL, MEDIUM, LARGE (S/M/L is also acceptable) ");
+        DrinkSize size;
+        try {
+            size = DrinkSize.parsed(sc.nextLine());
+        }catch (Exception e){
+            System.out.println("This is an invalid size. Please try again with a valid size");
+            return;
+        }
         System.out.println("How many drinks would you like: ");
         int q;
         try {
@@ -117,8 +125,8 @@ public class UserInterface {
             System.out.println("This is an invalid number of drinks. Please try again");
             return;
         }
-        order.addDrink(d,q);
-        System.out.printf("Added: %s x%d  $%.2f%n", d.getLabel(), q, d.getPrice() * q);
+        order.addDrink(d,size,q);
+        System.out.printf("Added: %s x%d  $%.2f%n",size.getLabel() + " " + d.getLabel(), q, d.getPrice() * q);
         pause(1500);
     }
     private void addChips(Order order){
