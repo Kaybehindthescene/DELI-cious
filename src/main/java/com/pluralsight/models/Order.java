@@ -1,6 +1,5 @@
 package com.pluralsight.models;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -15,8 +14,9 @@ public class Order {
     public void addSandwich(Sandwich sandwich, int quantity) {
         items.add(new SandwichItem(sandwich, quantity));
     }
-    public void addDrink(Drink drink,int quantity){
-        items.add(new RegularItem(drink.getLabel(),drink.getPrice(),quantity));
+    public void addDrink(Drink drink,DrinkSize size, int quantity){
+        String label = size.getLabel() + " " + drink.getLabel();
+        items.add(new RegularItem(label,size.getPrice(),quantity));
     }
     public void addChips(Chips chips,int quantity){
         items.add(new RegularItem(chips.getLabel(),chips.getPrice(),quantity));
@@ -60,7 +60,7 @@ public class Order {
         return getSubtotal() + getTax();
     }
 
-    // inside Order.java
+
     public String getReceipt() {
         StringBuilder sb = new StringBuilder();
 
@@ -84,7 +84,7 @@ public class Order {
 
                 // toppings under the sandwich
                 for (Topping t : s.getToppings()) {
-                    sb.append(String.format("   + %s%n", pretty(t.name())));
+                    sb.append(String.format("   + %s%n", prettyName(t.name())));
                 }
 
                 // sandwich total aligned to the right
@@ -124,8 +124,8 @@ public class Order {
         return result.toString();
 
 }
-    // "ROAST_BEEF" -> "Roast Beef"
-    private static String pretty(String enumName) {
+
+    private static String prettyName(String enumName) {
         String[] parts = enumName.toLowerCase().replace('_', ' ').split("\\s+");
         StringBuilder b = new StringBuilder();
         for (int i = 0; i < parts.length; i++) {

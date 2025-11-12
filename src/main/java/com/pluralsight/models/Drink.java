@@ -21,6 +21,7 @@ public enum Drink {
     }
 
     public static Drink parsed(String input){
-        return Drink.valueOf(input.trim().toUpperCase());
+        String s = input.trim().toUpperCase();
+        return Drink.valueOf(s);
     }
 }
