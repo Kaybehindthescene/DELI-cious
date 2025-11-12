@@ -144,7 +144,7 @@ public class UserInterface {
             System.out.println("Your cart is empty. Please add some items.");
             return;
         }
-        System.out.println("-------- Current Order ----------");
+        System.out.println("-------------------- Current Order ------------------------------");
         int i = 0;
         for (OrderItem item : order.getItems()){
             System.out.printf("%2d) %-20s x%-2d  @ $%.2f  = $%.2f%n",

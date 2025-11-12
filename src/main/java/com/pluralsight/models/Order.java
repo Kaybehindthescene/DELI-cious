@@ -1,5 +1,6 @@
 package com.pluralsight.models;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -9,6 +10,7 @@ public class Order {
     private static final double taxRate = 0.08875;
 
     private final List<OrderItem> items = new ArrayList<>();
+
 
     public void addSandwich(Sandwich sandwich, int quantity) {
         items.add(new SandwichItem(sandwich, quantity));
@@ -56,6 +58,75 @@ public class Order {
 
     public double getTotal(){
         return getSubtotal() + getTax();
+    }
+
+    public String getReceipt() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("*************************************\n");
+        sb.append("        DELI-cious Sandwich Co.\n");
+        sb.append("      123 Java Street, IDE City\n");
+        sb.append("          (555) 123-DELI\n");
+        sb.append("-------------------------------------\n");
+
+        java.time.LocalDateTime now = java.time.LocalDateTime.now();
+        sb.append(String.format("Order ID: #%04d     Date: %s%n",
+                (int) (Math.random() * 9999), now.toLocalDate()));
+        sb.append("-------------------------------------\n");
+
+        for (OrderItem item : items) {
+            if (item instanceof SandwichItem si) {
+                Sandwich s = si.getSandwich();
+                sb.append(String.format("%dx %s%n", si.getQuantity(), s.getLabel()));
+                for (Topping t : s.getToppings()) {
+                    sb.append(String.format("   + %s%n", pretty(t.name())));
+                }
+                sb.append(String.format("                           $%.2f%n", si.getOrderTotal()));
+                sb.append("\n");
+            } else {
+                // RegularItem (drinks, chips, etc.)
+                sb.append(String.format("%dx %-25s $%.2f%n",
+                        item.getQuantity(), item.getLabel(), item.getOrderTotal()));
+            }
+        }
+
+        sb.append("-------------------------------------\n");
+        sb.append(String.format("Subtotal                    $%.2f%n", getSubtotal()));
+        sb.append(String.format("Tax (8.875%%)                $%.2f%n", getTax()));
+        sb.append(String.format("Total                       $%.2f%n", getTotal()));
+        sb.append("*************************************\n");
+        sb.append("      Thanks for stopping by!\n");
+        sb.append("*************************************\n");
+
+        return sb.toString();
+    }
+
+
+
+    private String formatName(String raw) {
+        String lower = raw.toLowerCase().replace('_', ' ');
+        String[] parts = lower.split(" ");
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].isEmpty()) continue;
+            result.append(Character.toUpperCase(parts[i].charAt(0)))
+                    .append(parts[i].substring(1));
+            if (i < parts.length - 1) result.append(" ");
+        }
+        return result.toString();
+
+}
+    // Formats enum names like "ROAST_BEEF" into "Roast Beef"
+    private static String pretty(String enumName) {
+        String[] parts = enumName.toLowerCase().replace('_', ' ').split("\\s+");
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].isEmpty()) continue;
+            b.append(Character.toUpperCase(parts[i].charAt(0)))
+                    .append(parts[i].substring(1));
+            if (i < parts.length - 1) b.append(' ');
+        }
+        return b.toString();
     }
 
 }
