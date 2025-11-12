@@ -154,18 +154,21 @@ public class UserInterface {
                 order.getSubtotal(), order.getTax(), order.getTotal());
 
     }
-    private void checkOut(Order order){
-        if (order.isEmpty()){
-            System.out.println("No items to checkout");
-            return;
-        }
-        System.out.println("====== RECEIPT =====");
-        printCart(order);
-        System.out.println("====================");
+    private void checkOut(Order order) {
+        System.out.println();
+        System.out.println("=====================================");
+        System.out.println("          FINAL RECEIPT");
+        System.out.println("=====================================");
+        System.out.println();
 
-        order.clear();
-        System.out.println("Thank you for placing an order with us. Hope to see you again");
+        // Call your getReceipt() from Order
+        String receipt = order.getReceipt();
+        System.out.println(receipt);
+
+        System.out.println("Thank you for shopping with us. Please come by again");
+        sc.nextLine(); // pause so user can read receipt before returning
     }
+
     private void toppingsMenu(Sandwich sandwich){
         while (true){
             System.out.println("\n ===== TOPPINGS MENU =====");

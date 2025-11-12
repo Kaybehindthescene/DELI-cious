@@ -60,6 +60,7 @@ public class Order {
         return getSubtotal() + getTax();
     }
 
+    // inside Order.java
     public String getReceipt() {
         StringBuilder sb = new StringBuilder();
 
@@ -77,14 +78,20 @@ public class Order {
         for (OrderItem item : items) {
             if (item instanceof SandwichItem si) {
                 Sandwich s = si.getSandwich();
+
+                // main sandwich line
                 sb.append(String.format("%dx %s%n", si.getQuantity(), s.getLabel()));
+
+                // toppings under the sandwich
                 for (Topping t : s.getToppings()) {
                     sb.append(String.format("   + %s%n", pretty(t.name())));
                 }
+
+                // sandwich total aligned to the right
                 sb.append(String.format("                           $%.2f%n", si.getOrderTotal()));
                 sb.append("\n");
             } else {
-                // RegularItem (drinks, chips, etc.)
+                // Regular items (drinks, chips, etc.)
                 sb.append(String.format("%dx %-25s $%.2f%n",
                         item.getQuantity(), item.getLabel(), item.getOrderTotal()));
             }
@@ -103,6 +110,7 @@ public class Order {
 
 
 
+
     private String formatName(String raw) {
         String lower = raw.toLowerCase().replace('_', ' ');
         String[] parts = lower.split(" ");
@@ -116,7 +124,7 @@ public class Order {
         return result.toString();
 
 }
-    // Formats enum names like "ROAST_BEEF" into "Roast Beef"
+    // "ROAST_BEEF" -> "Roast Beef"
     private static String pretty(String enumName) {
         String[] parts = enumName.toLowerCase().replace('_', ' ').split("\\s+");
         StringBuilder b = new StringBuilder();
