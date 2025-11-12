@@ -222,7 +222,10 @@ public class UserInterface {
                 }
                 case "5" -> addFromCategory(sandwich, ToppingType.REGULAR);
                 case "6" -> addFromCategory(sandwich, ToppingType.SAUCE);
-                case "V" -> printCurrentSandwich(sandwich);
+                case "V" -> {
+                    printCurrentSandwich(sandwich);
+                    pause(1500);
+                }
                 case "D" -> { return; }
                 default -> System.out.println("Invalid option.");
             }
