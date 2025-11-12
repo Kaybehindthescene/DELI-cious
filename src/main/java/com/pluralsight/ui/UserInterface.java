@@ -3,6 +3,7 @@ package com.pluralsight.ui;
 import com.pluralsight.models.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -231,6 +232,19 @@ public class UserInterface {
                     added, sandwich.getPrice());
         }
 
+    }
+    private List<Topping> optionsFor(ToppingType type){
+        List<Topping> list = new ArrayList<Topping>();
+        for (Topping t : Topping.values() ) if (t.getType() == type) list.add(t);
+        return list;
+    }
+    private void printCurrentSandwich(Sandwich s){
+        System.out.println("\n-- Current Sandwich --");
+        System.out.println(s.getLabel());
+        if (s.getToppings().isEmpty()){
+            System.out.println("(no toppings yet)");
+        }
+        System.out.printf("Price so far: $%.2f%n", s.getPrice());
     }
 
 
