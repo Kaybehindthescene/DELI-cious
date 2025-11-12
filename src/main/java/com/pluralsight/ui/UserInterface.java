@@ -199,7 +199,7 @@ public class UserInterface {
             System.out.println("No options available.");
             return;
         }
-        System.out.println("\n--" + type + "options --");
+        System.out.println("\n--" + type.name() + "OPTIONS --");
         for (Topping t : options){
             double price = t.getPrice(sandwich.getSize());
             System.out.printf("- %s  %s%n",
