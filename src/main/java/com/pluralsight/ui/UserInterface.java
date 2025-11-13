@@ -95,22 +95,6 @@ public class UserInterface {
 
         toppingsMenu(sandwich);
 
-        System.out.println("Would you like extra meat? (Yes/No)");
-        String extraMeat =sc.nextLine().trim().toLowerCase();
-        if (extraMeat.equalsIgnoreCase("yes")){
-            sandwich.addTopping(Topping.EXTRA_MEAT);
-            System.out.println("Extra meat has been added!!!");
-            pause(1000);
-        }
-        System.out.println("Would you like extra cheese? (Yes/No)");
-        String extraCheese = sc.nextLine().trim().toLowerCase();
-        if (extraCheese.equalsIgnoreCase("yes")){
-            sandwich.addTopping(Topping.EXTRA_CHEESE);
-            System.out.println("Extra cheese has been added!!!");
-            pause(1000);
-        }
-
-
         System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
         pause(1500);
         order.addSandwich(sandwich,1);
@@ -215,10 +199,30 @@ public class UserInterface {
             switch (c){
                 case "1" -> addFromCategory(sandwich, ToppingType.MEAT);
                 case "2" -> addFromCategory(sandwich, ToppingType.CHEESE);
-                case "3" ->{addFromCategory(sandwich, ToppingType.EXTRA_MEAT);
+                case "3" ->{ System.out.println("Would you like extra meat? (Yes/No)");
+                    String answer = sc.nextLine().trim().toLowerCase();
+                    if (answer.equalsIgnoreCase("yes")){
+                        System.out.println("Extra meat added!!!");
+                        pause(800);
+                        sandwich.addTopping(Topping.EXTRA_MEAT);
+                    }else {
+                        System.out.println("Extra meat was not added");
+                        pause(800);
+                    }
+                    return;
                 }
-                case "4" -> {
-                    addFromCategory(sandwich, ToppingType.EXTRA_CHEESE);
+                case "4" -> {System.out.println("Would you like extra cheese? (Yes/No)");
+                    String answer = sc.nextLine().trim().toLowerCase();
+                    if (answer.equalsIgnoreCase("yes")){
+                        System.out.println("Extra cheese added!!!");
+                        pause(800);
+                        sandwich.addTopping(Topping.EXTRA_CHEESE);
+                    }else {
+                        System.out.println("Extra cheese was not added");
+                        pause(800);
+                    }
+                    return;
+
                 }
                 case "5" -> addFromCategory(sandwich, ToppingType.REGULAR);
                 case "6" -> addFromCategory(sandwich, ToppingType.SAUCE);
@@ -244,34 +248,7 @@ public class UserInterface {
                     t.name(),
                     price == 0.0 ? "(included)" : String.format("$%.2f", price));
         }
-        if (type == ToppingType.EXTRA_MEAT){
-            System.out.println("Would you like extra meat? (Yes/No)");
-            String answer = sc.nextLine().trim().toLowerCase();
-            if (answer.equalsIgnoreCase("yes")){
-                System.out.println("Extra meat added!!!");
-                pause(800);
-                sandwich.addTopping(Topping.EXTRA_MEAT);
-            }else {
-                System.out.println("Extra meat was not added");
-                pause(800);
-            }
-            return;
 
-        }
-        if (type == ToppingType.EXTRA_CHEESE){
-            System.out.println("Would you like extra cheese? (Yes/No)");
-            String answer = sc.nextLine().trim().toLowerCase();
-            if (answer.equalsIgnoreCase("yes")){
-                System.out.println("Extra cheese added!!!");
-                pause(800);
-                sandwich.addTopping(Topping.EXTRA_CHEESE);
-            }else {
-                System.out.println("Extra cheese was not added");
-                pause(800);
-            }
-            return;
-
-        }
         System.out.println("Type names separated by commas (or Enter to skip): ");
         String input = sc.nextLine().trim();
         if (input.isEmpty()){
@@ -305,12 +282,16 @@ public class UserInterface {
         for (Topping t : Topping.values() ) if (t.getType() == type) list.add(t);
         return list;
     }
-    private void printCurrentSandwich(Sandwich s){
+    private void printCurrentSandwich(Sandwich s) {
         System.out.println("\n-- Current Sandwich --");
-        System.out.println(s.getLabel());
-        if (s.getToppings().isEmpty()){
-            System.out.println("(no toppings yet)");
+        String line = s.getSize().getLabel() + " " + s.getBread().getDisplayName();
+        if (s.isToasted()) {
+            line += "(toasted)";
         }
+        System.out.println(line);
+        for (Topping t : s.getToppings())
+            System.out.println("  + " + toTitleCase(t.name()));
+
         System.out.printf("Price so far: $%.2f%n", s.getPrice());
     }
     private void pause(long time){
@@ -321,6 +302,19 @@ public class UserInterface {
         }
 
     }
+    private String toTitleCase(String enumName) {
+        String[] parts = enumName.toLowerCase().replace('_', ' ').split("\\s+");
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i < parts.length; i++) {
+            if (parts[i].isEmpty()) continue;
+            b.append(Character.toUpperCase(parts[i].charAt(0)))
+                    .append(parts[i].substring(1));
+            if (i < parts.length - 1) b.append(' ');
+        }
+        return b.toString();
+    }
+
+
 
 
 
