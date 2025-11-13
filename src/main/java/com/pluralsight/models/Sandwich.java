@@ -53,14 +53,7 @@ public class Sandwich {
 
     public String getLabel(){
         String base = size.getLabel() + " " + bread.getDisplayName() + (toasted ? " (toasted)" : "");
-        if (toppings.isEmpty()){
             return base;
-        }
-        String list = String.join(", ",
-                toppings.stream()
-                        .map(t -> toTitle(t.name()))
-                        .toList());
-        return base + " with " + list;
     }
 
     @Override
