@@ -1,7 +1,9 @@
 package com.pluralsight.models;
-
+// Represents every topping available
+// Each topping belongs to a category
+// which helps determine pricing and menu organization
 public enum Topping {
-
+    //REGULAR topping options
     LETTUCE(ToppingType.REGULAR),
     TOMATO(ToppingType.REGULAR),
     ONION(ToppingType.REGULAR),
@@ -11,26 +13,31 @@ public enum Topping {
     MUSHROOMS(ToppingType.REGULAR),
     JALAPENOS(ToppingType.REGULAR),
 
+    //Sauce topping options
     MAYO(ToppingType.SAUCE),
     MUSTARD(ToppingType.SAUCE),
     RANCH(ToppingType.SAUCE),
     THOUSAND_ISLAND(ToppingType.SAUCE),
     VINAIGRETTE(ToppingType.SAUCE),
 
+    //Meat topping options
     HAM(ToppingType.MEAT),
     SALAMI(ToppingType.MEAT),
     ROAST_BEEF(ToppingType.MEAT),
     CHICKEN(ToppingType.MEAT),
     BACON(ToppingType.MEAT),
 
+    //Cheese topping option
     AMERICAN(ToppingType.CHEESE),
     PROVOLONE(ToppingType.CHEESE),
     CHEDDAR(ToppingType.CHEESE),
     SWISS(ToppingType.CHEESE),
 
+    //Extra meat chopping option
     EXTRA_MEAT(ToppingType.EXTRA_MEAT),
     EXTRA_CHEESE(ToppingType.EXTRA_CHEESE);
 
+    // Stores the category for this topping
     private final ToppingType type;
 
     Topping(ToppingType type) {
@@ -40,7 +47,7 @@ public enum Topping {
     public ToppingType getType() {
         return type;
     }
-
+    // Returns the price of this topping depending on sandwich size and category
     public double getPrice(Size size){
         switch (type){
             case MEAT:
@@ -93,6 +100,7 @@ public enum Topping {
     }
     return 0.00;
 }
+    // Converts a user-typed string into the matching Topping enum value
     public static Topping parse(String input) {
         if (input == null || input.trim().isEmpty()) {
             throw new IllegalArgumentException("Topping name cannot be empty.");

@@ -1,5 +1,6 @@
 package com.pluralsight.models;
-
+//Represents the available drink sizes
+//Each size has a display label and a fixed price
 public enum DrinkSize {
     SMALL("Small", 2.00),
     MEDIUM("Medium", 2.50),
@@ -20,7 +21,8 @@ public enum DrinkSize {
     public double getPrice() {
         return price;
     }
-    
+    //Parses user input and converts it into a DrinkSize value
+    // Accepts multiple input formats
     public static DrinkSize parsed(String input){
         String s = input.trim().toLowerCase();
         switch (s){
