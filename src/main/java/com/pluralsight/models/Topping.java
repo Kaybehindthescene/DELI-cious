@@ -26,6 +26,7 @@ public enum Topping {
     ROAST_BEEF(ToppingType.MEAT),
     CHICKEN(ToppingType.MEAT),
     BACON(ToppingType.MEAT),
+    GROUND_BEEF(ToppingType.MEAT),
 
     //Cheese topping option
     AMERICAN(ToppingType.CHEESE),

@@ -13,6 +13,6 @@ public class PhillyCheeseSteak extends Sandwich {
     }
     @Override
     public String getLabel(){
-        return "Philly CheeseSteak (" + super.getLabel() + ")"
+        return "Philly CheeseSteak (" + super.getLabel() + ")";
     }
 }

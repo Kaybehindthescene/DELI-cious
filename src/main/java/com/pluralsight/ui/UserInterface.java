@@ -355,6 +355,7 @@ public class UserInterface {
     private void addSignatureSandwich(Order order){
         System.out.println("\n=====SIGNATURE SANDWICHES=====");
         System.out.println("1) Chopped Cheese");
+        S
         System.out.println("0) Back");
         System.out.println("Choose: ");
 
