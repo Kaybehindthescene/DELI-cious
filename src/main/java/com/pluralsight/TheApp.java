@@ -9,6 +9,7 @@ public class TheApp {
         //created a user interface
         UserInterface ui = new UserInterface();
 
+        // The home() method displays the main menu (Home screen)
         ui.home();
 
 
