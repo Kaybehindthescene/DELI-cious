@@ -12,6 +12,7 @@ public enum Topping {
     PEPPERS(ToppingType.REGULAR),
     MUSHROOMS(ToppingType.REGULAR),
     JALAPENOS(ToppingType.REGULAR),
+    EGG(ToppingType.REGULAR),
 
     //Sauce topping options
     MAYO(ToppingType.SAUCE),
@@ -19,6 +20,7 @@ public enum Topping {
     RANCH(ToppingType.SAUCE),
     THOUSAND_ISLAND(ToppingType.SAUCE),
     VINAIGRETTE(ToppingType.SAUCE),
+    KETCHUP(ToppingType.SAUCE),
 
     //Meat topping options
     HAM(ToppingType.MEAT),

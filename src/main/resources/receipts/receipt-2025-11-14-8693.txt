@@ -1,0 +1,35 @@
+*************************************
+        DELI-cious Sandwich Co.
+      165 Ralph Ave, Brooklyn,NY
+          (123) 456-DELI
+-------------------------------------
+Order ID: #2786     Date: 2025-11-14
+-------------------------------------
+1x Bacon Egg & Cheese (8" White (toasted))
+   + Bacon
+   + Egg
+   + American
+                           $10.50
+
+1x 12" Wrap (toasted)
+   + Chicken
+   + Bacon
+   + Cheddar
+   + Extra Meat
+   + Lettuce
+   + Pickles
+   + Mayo
+                           $18.65
+
+1x Small Soda                $2.00
+2x Chips - Classic           $2.98
+
+Included Side: Au Jus
+-------------------------------------
+Subtotal                    $34.13
+Tax (8.875%)                $3.03
+Total                       $37.16
+*************************************
+      Thanks for stopping by!
+*************************************
+

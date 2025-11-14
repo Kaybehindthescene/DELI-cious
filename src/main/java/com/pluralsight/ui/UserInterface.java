@@ -386,6 +386,7 @@ public class UserInterface {
         System.out.println("1) BLT");
         System.out.println("2) Philly CheeseSteak");
         System.out.println("3) Chopped Cheese");
+        System.out.println("4) BaconEgg&Cheese");
         System.out.println("0) Back");
         System.out.println("Choose: ");
 
@@ -397,6 +398,7 @@ public class UserInterface {
             case "1" -> sandwich = new BltSandwich();
             case "2" -> sandwich = new PhillyCheeseSteak();
             case "3" -> sandwich = new ChoppedCheese();
+            case "4" -> sandwich = new BaconEggAndCheese();
             case "0"-> {
                 System.out.println("Returning to sandwich options");
                 pause(900);

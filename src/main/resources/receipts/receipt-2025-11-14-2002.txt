@@ -1,0 +1,26 @@
+*************************************
+        DELI-cious Sandwich Co.
+      165 Ralph Ave, Brooklyn,NY
+          (123) 456-DELI
+-------------------------------------
+Order ID: #8910     Date: 2025-11-14
+-------------------------------------
+1x Chopped Cheese (8" White (toasted))
+   + Ground Beef
+   + American
+   + Lettuce
+   + Tomato
+   + Onion
+   + Mayo
+                           $10.50
+
+
+Included Side: None
+-------------------------------------
+Subtotal                    $10.50
+Tax (8.875%)                $0.93
+Total                       $11.43
+*************************************
+      Thanks for stopping by!
+*************************************
+
