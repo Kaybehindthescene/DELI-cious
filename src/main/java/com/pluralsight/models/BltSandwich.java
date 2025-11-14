@@ -4,7 +4,7 @@ public class BltSandwich extends Sandwich{
 
     public BltSandwich(){
         super(Size.EIGHT,Bread.WHITE,true);
-        addTopping(
+        addToppings(
                 Topping.BACON,
                 Topping.CHEDDAR,
                 Topping.LETTUCE,
