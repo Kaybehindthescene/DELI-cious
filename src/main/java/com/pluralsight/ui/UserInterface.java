@@ -2,7 +2,6 @@ package com.pluralsight.ui;
 
 import com.pluralsight.models.*;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -352,20 +351,45 @@ public class UserInterface {
         }
         return b.toString();//Add a space between words, but not after the last one
     }
+    // Handles the process of adding a pre-made (signature) sandwich to the order
     private void addSignatureSandwich(Order order){
         System.out.println("\n=====SIGNATURE SANDWICHES=====");
-        System.out.println("1) Chopped Cheese");
-        S
+        System.out.println("1) BLT");
+        System.out.println("2) Philly CheeseSteak");
+        System.out.println("3) Chopped Cheese");
         System.out.println("0) Back");
         System.out.println("Choose: ");
 
         String choice = sc.nextLine().trim();
+        // We declare the sandwich variable here so it can be assigned inside the switch
+        Sandwich sandwich = null;
 
         switch (choice){
-            case "1" ->{
-                S
+            case "1" -> sandwich = new BltSandwich();
+            case "2" -> sandwich = new PhillyCheeseSteak();
+            case "3" -> sandwich = new ChoppedCheese();
+            case "0"-> {
+                System.out.println("Returning to sandwich options");
+                pause(900);
+                return;
+            }
+            default -> {
+                System.out.println("Invalid signature choice. Returning to sandwich options.");
+                pause(800);
+                return;
             }
         }
+        System.out.println("\nYou chose:");
+        printCurrentSandwich(sandwich);
+
+        System.out.println("\nWould you like to add extra toppings on the sandwich? (Yes/No): ");
+        String answer = sc.nextLine().trim().toLowerCase();
+        if (answer.equalsIgnoreCase("yes")){
+            toppingsMenu(sandwich);
+        }
+        order.addSandwich(sandwich, 1);
+        System.out.printf("Added to order: %s  $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
+        pause(1500);
     }
 
 

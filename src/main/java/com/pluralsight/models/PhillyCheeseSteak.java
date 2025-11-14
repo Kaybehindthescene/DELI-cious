@@ -4,7 +4,7 @@ public class PhillyCheeseSteak extends Sandwich {
 
     public PhillyCheeseSteak(){
         super(Size.EIGHT,Bread.WHITE,true);
-        addTopping(
+        addToppings(
                 Topping.ROAST_BEEF,
                 Topping.AMERICAN,
                 Topping.PEPPERS,

@@ -1,8 +1,8 @@
 package com.pluralsight.models;
 
-public class ChoppedCheeseSandwich extends Sandwich {
+public class ChoppedCheese extends Sandwich {
 
-    public ChoppedCheeseSandwich() {
+    public ChoppedCheese() {
         // 8" WHITE, toasted
         super(Size.EIGHT, Bread.WHITE, true);
 
