@@ -73,7 +73,24 @@ public class UserInterface {
     }
 
     // a method that guides the user into making a sandwich
+    // or lets them pick a premade "signature" sandwich.
     private void addSandwichFlow(Order order){
+        // First, ask if they want to build their own or choose a premade sandwich
+        System.out.println("Would you like to: ");
+        System.out.println("1) Build your own sandwich");
+        System.out.println("2) Choose from our signature sandwiches");
+        System.out.println("Choose: ");
+
+        String firstChoice = sc.nextLine().trim();
+        if (firstChoice.equals("2")){
+            addSignatureSandwich(order);// Go to the signature sandwiches menu
+            return;
+        } else if (!firstChoice.equals("1")) {
+            System.out.println("Invalid choice returning to main menu");
+         pause(1000);
+         return;
+        }
+
         System.out.println("What size sandwich do you want? The options are 4/8/12 inches.");
         Size size;
         try {
@@ -334,6 +351,20 @@ public class UserInterface {
             if (i < parts.length - 1) b.append(' ');//Add a space between words, but not after the last one
         }
         return b.toString();//Add a space between words, but not after the last one
+    }
+    private void addSignatureSandwich(Order order){
+        System.out.println("\n=====SIGNATURE SANDWICHES=====");
+        System.out.println("1) Chopped Cheese");
+        System.out.println("0) Back");
+        System.out.println("Choose: ");
+
+        String choice = sc.nextLine().trim();
+
+        switch (choice){
+            case "1" ->{
+                S
+            }
+        }
     }
 
 
