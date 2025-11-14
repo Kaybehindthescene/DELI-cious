@@ -1,5 +1,8 @@
 package com.pluralsight.models;
-
+// Represents a sandwich as an item inside an order.
+// This class wraps a Sandwich object and adds quantity information,
+// allowing the order system to treat sandwiches as "OrderItems"
+// like drinks, chips, etc
 public class SandwichItem implements OrderItem{
 
     private final Sandwich sandwich;
@@ -33,7 +36,8 @@ public class SandwichItem implements OrderItem{
     public int getQuantity(){
         return quantity;
     }
-
+    // Returns total cost (unit price × quantity).
+    // Uses the default implementation provided by the OrderItem interface.
     @Override
     public double getOrderTotal() {
         return OrderItem.super.getOrderTotal();
