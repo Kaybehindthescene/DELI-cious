@@ -1,5 +1,6 @@
 package com.pluralsight.models;
-
+// Represents the different chip options available to add to an order.
+// Each chip flavor has a label (used for display) and a price.
 public enum Chips {
     CLASSIC("Chips - Classic", 1.49),
     BBQ("Chips - BBQ", 1.59),
@@ -20,7 +21,7 @@ public enum Chips {
     public double getPrice() {
         return price;
     }
-
+    // Converts user input into a Chips enum.
     public static Chips parsed(String input){
         String s = input.trim().toUpperCase().replace(' ', '_');
         if (s.equals("BBQ")){

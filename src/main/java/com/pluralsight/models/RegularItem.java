@@ -1,5 +1,7 @@
 package com.pluralsight.models;
-
+// Represents a simple, generic item that can be added to an order.
+// Used for items that are not sandwiches, drinks, or chips,
+// but still need a label, a price, and a quantity.
 public class RegularItem implements OrderItem{
     private final String label;
     private final double unitPrice;
