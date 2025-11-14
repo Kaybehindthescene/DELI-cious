@@ -197,6 +197,9 @@ public class UserInterface {
 
         // Call your getReceipt() from Order object
         String receipt = order.getReceipt();
+
+        order.saveReceiptToFile();
+
         System.out.println(receipt);
 
         System.out.println("Please come by again");

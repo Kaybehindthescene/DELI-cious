@@ -1,5 +1,7 @@
 package com.pluralsight.models;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -151,5 +153,35 @@ public class Order {
         }
         return b.toString();
     }
+
+    public void saveReceiptToFile() {
+        try {
+            // Make sure the directory exists
+            File directory = new File("src/main/resources/receipts");
+            if (!directory.exists()) {
+                directory.mkdirs();
+            }
+
+            // Create a filename using date + random ID
+            String fileName = String.format(
+                    "receipt-%s-%04d.txt",
+                    java.time.LocalDate.now(),
+                    (int)(Math.random() * 9999)
+            );
+
+            File file = new File(directory, fileName);
+
+            // Write the receipt text
+            try (PrintWriter pw = new PrintWriter(file)) {
+                pw.println(getReceipt());
+            }
+
+            System.out.println("Receipt saved to: " + file.getAbsolutePath());
+
+        } catch (Exception e) {
+            System.out.println("Failed to save receipt: " + e.getMessage());
+        }
+    }
+
 
 }
