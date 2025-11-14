@@ -3,49 +3,61 @@ package com.pluralsight.models;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
+// Represents a complete customer order containing sandwiches, drinks,
+// chips, or any other items. Also calculates subtotal, tax, and total,
+// and generates the final printed receipt.
 public class Order {
 
+    // NY-style tax rate used for all orders
     private static final double taxRate = 0.08875;
 
+    // Stores all items added to the order
     private final List<OrderItem> items = new ArrayList<>();
 
-
+    // Adds a sandwich wrapped in a SandwichItem
     public void addSandwich(Sandwich sandwich, int quantity) {
         items.add(new SandwichItem(sandwich, quantity));
     }
+
+    // Adds a drink as a RegularItem using its size + drink label
     public void addDrink(Drink drink,DrinkSize size, int quantity){
         String label = size.getLabel() + " " + drink.getLabel();
         items.add(new RegularItem(label,size.getPrice(),quantity));
     }
+
+    // Adds chips as a RegularItem
     public void addChips(Chips chips,int quantity){
         items.add(new RegularItem(chips.getLabel(),chips.getPrice(),quantity));
     }
+
+    // Allows directly adding a custom OrderItem
     public void addItem(OrderItem item){
         if (item == null){
             throw new IllegalArgumentException("item");
         }
         items.add(item);
     }
+
+    // Removes an item at a certain index; returns false if index is invalid
     public boolean removeAt(int index) {
         if (index < 0 || index >= items.size()) return false;
         items.remove(index);
         return true;
     }
 
-
+    // Removes all items from the order
     public void clear(){
         items.clear();
     }
-
+    // Returns an unmodifiable list so outside code cannot modify items directly
     public List<OrderItem> getItems(){
         return Collections.unmodifiableList(items);
     }
-
+    // Quick check to see if the order has no items
     public boolean isEmpty(){
         return items.isEmpty();
     }
-
+    // Adds up each item's total
     public double getSubtotal(){
         double sum = 0.0;
         for (OrderItem ri : items) sum += ri.getOrderTotal();
@@ -60,7 +72,7 @@ public class Order {
         return getSubtotal() + getTax();
     }
 
-
+    // Builds a formatted string receipt using item details and totals
     public String getReceipt() {
         StringBuilder sb = new StringBuilder();
 
@@ -70,13 +82,14 @@ public class Order {
         sb.append("          (555) 123-DELI\n");
         sb.append("-------------------------------------\n");
 
+        // Order number & date
         java.time.LocalDateTime now = java.time.LocalDateTime.now();
         sb.append(String.format("Order ID: #%04d     Date: %s%n",
                 (int) (Math.random() * 9999), now.toLocalDate()));
         sb.append("-------------------------------------\n");
-
+        //Print every item in the order
         for (OrderItem item : items) {
-            if (item instanceof SandwichItem si) {
+            if (item instanceof SandwichItem si) { //Special formatting for sandwiches
                 Sandwich s = si.getSandwich();
 
                 // main sandwich line
@@ -110,7 +123,9 @@ public class Order {
 
 
 
-
+    // Converts enum-looking text
+    //previous method used in printing on the receipt before I changed
+    //hiw the receipt looked
     private String formatName(String raw) {
         String lower = raw.toLowerCase().replace('_', ' ');
         String[] parts = lower.split(" ");
@@ -124,7 +139,7 @@ public class Order {
         return result.toString();
 
 }
-
+    // Another version used for printing toppings in the receipt
     private static String prettyName(String enumName) {
         String[] parts = enumName.toLowerCase().replace('_', ' ').split("\\s+");
         StringBuilder b = new StringBuilder();
