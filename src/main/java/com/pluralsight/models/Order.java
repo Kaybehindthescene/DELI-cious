@@ -78,8 +78,8 @@ public class Order {
 
         sb.append("*************************************\n");
         sb.append("        DELI-cious Sandwich Co.\n");
-        sb.append("      123 Java Street, IDE City\n");
-        sb.append("          (555) 123-DELI\n");
+        sb.append("      705 Macon St, Brooklyn,NY\n");
+        sb.append("          (123) 456-DELI\n");
         sb.append("-------------------------------------\n");
 
         // Order number & date
