@@ -70,7 +70,6 @@ public class UserInterface {
             }
         }
     }
-
     // a method that guides the user into making a sandwich
     // or lets them pick a premade "signature" sandwich.
     private void addSandwichFlow(Order order){
@@ -112,7 +111,26 @@ public class UserInterface {
 
         Sandwich sandwich = new Sandwich(size, bread, toasted);// creates a sandwich object using the user input
 
-        toppingsMenu(sandwich);//enter the topping menu for that sandwich
+
+        boolean editing = true;
+        while (editing){
+
+            toppingsMenu(sandwich);//enter the topping menu for that sandwich
+            System.out.print("Would you like au jus? (Yes/No): ");
+            String auJusChoice = sc.nextLine().trim().toLowerCase();
+
+            if (auJusChoice.equals("yes")) {
+                order.setIncludedSide("Au Jus");
+            } else {
+                order.setIncludedSide("None");
+            }
+            System.out.println("Do you want to keep editing your sandwich? (Yes/No):");
+            String keepEdititng = sc.nextLine().trim().toLowerCase();
+            if (!keepEdititng.equals("yes")){
+                editing = false;
+            }
+        }
+
 
         System.out.printf("Added: %s $%.2f%n", sandwich.getLabel(), sandwich.getPrice());
         pause(1500);
@@ -224,7 +242,12 @@ public class UserInterface {
             switch (c){
                 case "1" -> addFromCategory(sandwich, ToppingType.MEAT);// add normal meat toppping
                 case "2" -> addFromCategory(sandwich, ToppingType.CHEESE);//add normal cheese topping
-                case "3" ->{ System.out.println("Would you like extra meat? (Yes/No)");
+                case "3" ->{
+                    // look up the price based on this sandwich's size
+                    double extraMeatPrice = Topping.EXTRA_MEAT.getPrice(sandwich.getSize());
+                    System.out.printf("Extra meat costs: $%.2f for a %s sandwich.%n",extraMeatPrice,
+                            sandwich.getSize().getLabel());
+                    System.out.println("Would you like extra meat? (Yes/No)");
                     String answer = sc.nextLine().trim().toLowerCase();//stores answer in variable
                     if (answer.equalsIgnoreCase("yes")){
                         System.out.println("Extra meat added!!!");
@@ -234,9 +257,13 @@ public class UserInterface {
                         System.out.println("Extra meat was not added");
                         pause(800);
                     }
-                    return;
                 }
-                case "4" -> {System.out.println("Would you like extra cheese? (Yes/No)");
+                case "4" -> {
+                    // look up the price based on this sandwich's size
+                    double extraCheesePrice = Topping.EXTRA_CHEESE.getPrice(sandwich.getSize());
+                    System.out.printf("Extra cheese costs: $%.2f for a %s sandwich.%n", extraCheesePrice,
+                            sandwich.getSize().getLabel());
+                    System.out.println("Would you like extra cheese? (Yes/No)");
                     String answer = sc.nextLine().trim().toLowerCase();//stores answer in variable
                     if (answer.equalsIgnoreCase("yes")){
                         System.out.println("Extra cheese added!!!");
@@ -246,7 +273,6 @@ public class UserInterface {
                         System.out.println("Extra cheese was not added");
                         pause(800);
                     }
-                    return;
 
                 }
                 case "5" -> addFromCategory(sandwich, ToppingType.REGULAR);//add regular topping vegetables

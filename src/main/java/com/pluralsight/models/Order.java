@@ -16,6 +16,8 @@ public class Order {
     // Stores all items added to the order
     private final List<OrderItem> items = new ArrayList<>();
 
+    private String includedSide;
+
     // Adds a sandwich wrapped in a SandwichItem
     public void addSandwich(Sandwich sandwich, int quantity) {
         items.add(new SandwichItem(sandwich, quantity));
@@ -74,6 +76,14 @@ public class Order {
         return getSubtotal() + getTax();
     }
 
+    public String getIncludedSide() {
+        return includedSide;
+    }
+
+    public void setIncludedSide(String includedSide) {
+        this.includedSide = includedSide;
+    }
+
     // Builds a formatted string receipt using item details and totals
     public String getReceipt() {
         StringBuilder sb = new StringBuilder();
@@ -111,6 +121,13 @@ public class Order {
                         item.getQuantity(), item.getLabel(), item.getOrderTotal()));
             }
         }
+        sb.append("\nIncluded Side: ");
+        if (includedSide == null || includedSide.isEmpty()) {
+            sb.append("None");
+        } else {
+            sb.append(includedSide);
+        }
+        sb.append("\n");
 
         sb.append("-------------------------------------\n");
         sb.append(String.format("Subtotal                    $%.2f%n", getSubtotal()));
@@ -127,7 +144,7 @@ public class Order {
 
     // Converts enum-looking text
     //previous method used in printing on the receipt before I changed
-    //hiw the receipt looked
+    //how the receipt looked
     private String formatName(String raw) {
         String lower = raw.toLowerCase().replace('_', ' ');
         String[] parts = lower.split(" ");
